@@ -26,8 +26,8 @@ class VNPayService{
             'vnp_OrderInfo' => time(),
             'vnp_IpAddr' => Request::ip(),
             'vnp_Amount' => ($payAmount * self::VNPAY_UNIT),
-            'vnp_SecureHashType' => "SHA256",
-            'vnp_ReturnUrl' => 'http://171.244.203.202:7777/api/payment/processOrder',
+            'vnp_SecureHashType' => "sha256",
+            'vnp_ReturnUrl' => route('payment.processOrder'),
         ])->send();
         
         if ($response->isRedirect()) {
