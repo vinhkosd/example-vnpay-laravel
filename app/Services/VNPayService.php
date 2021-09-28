@@ -49,9 +49,9 @@ class VNPayService{
             // TODO: xử lý kết quả và hiển thị.
             var_dump($response->vnp_Amount);
             var_dump($response->vnp_TxnRef);
-            
+            $payAmount = number_format(intval($response->vnp_Amount) / self::VNPAY_UNIT);
             // var_dump($response->getData()); // toàn bộ data do VNPay gửi sang.
-            return "Giao dịch thành công!";
+            return "Giao dịch thành công! Bạn đã thanh toán thành công số tiền $payAmount VND!";
         } else {
         
             // print $response->getMessage();
