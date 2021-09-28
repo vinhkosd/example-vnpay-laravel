@@ -21,13 +21,14 @@ class PaymentController extends Controller
     {        
         $input = $request->all();
         $urlRedirect = $this->vnPayService->createOrder($input);
-        // return redirect($urlRedirect);
-        return $urlRedirect;
+        return redirect($urlRedirect);
+        // return $urlRedirect;
     }
     
     public function processOrder(Request $request)
     {
         $input = $request->all();
-        return $this->vnPayService->processOrder($request, $input);
+        $messages = $this->vnPayService->processOrder($request, $input);
+        return redirect("/?messages=".$messages);
     }
 }

@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'payment'], function ($router) {
-    Route::get('createOrder', 'PaymentController@createOrder');
+Route::group(['prefix' => 'payment', 'as'=>'payment.'], function ($router) {
+    Route::get('createOrder', ['as' => 'createOrder', 'uses' => 'PaymentController@createOrder']);
     Route::get('processOrder', 'PaymentController@processOrder');
 });

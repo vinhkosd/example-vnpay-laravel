@@ -51,7 +51,7 @@ class VNPayService{
             var_dump($response->vnp_TxnRef);
             
             // var_dump($response->getData()); // toàn bộ data do VNPay gửi sang.
-            return $response->getData();
+            return "Giao dịch thành công!";
         } else {
         
             // print $response->getMessage();
