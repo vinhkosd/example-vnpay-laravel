@@ -7,6 +7,8 @@ class VNPayService{
     
     const VNPAY_ORDER_TYPE = 190000;
     const VNPAY_UNIT = 100;
+    const VNPAY_RESPONSE_CODE_SUCCESS = '00';
+    const VNPAY_TRANSACTION_STATUS_SUCCESS = '00';
     
     public function __construct()
     {
@@ -57,5 +59,28 @@ class VNPayService{
             // print $response->getMessage();
             return "Giao dịch không thành công!";
         }
-    } 
+    }
+    
+    public function VnPayIPN($input) { 
+        $returnData = array();
+        $response = $this->gateway->notification()->send();
+        $responseData = $response->getData();
+        if (!empty($responseData)) {
+            // TODO: xử lý kết quả.
+            if ($responseData['vnp_ResponseCode'] == '00' || $responseData['vnp_TransactionStatus'] == '00') {
+                $Status = 1; // Trạng thái thanh toán thành công
+            } else {
+                $Status = 2; // Trạng thái thanh toán thất bại / lỗi
+            }
+            
+            $returnData['RspCode'] = '00';
+            $returnData['Message'] = 'Confirm Success';
+            return $returnData;
+        }
+        else {
+            $returnData['RspCode'] = '99';
+            $returnData['Message'] = 'Unknow error';
+            return $responseData;
+        }
+    }
 }

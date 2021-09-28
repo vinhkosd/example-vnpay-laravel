@@ -30,4 +30,10 @@ class PaymentController extends Controller
         $messages = $this->vnPayService->processOrder($request, $input);
         return redirect("/?messages=".$messages);
     }
+    
+    public function VnPayIPN(Request $request)
+    {
+        $input = $request->all();
+        return $this->vnPayService->VnPayIPN($input);
+    }
 }
